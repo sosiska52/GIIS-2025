@@ -1,6 +1,6 @@
 from PIL import Image, ImageDraw
 import numpy as np
-import random
+import secrets  # Используем модуль secrets вместо random
 
 def add_noise_dot(image_path, noise_level=100):
     img = Image.open(image_path)
@@ -9,9 +9,15 @@ def add_noise_dot(image_path, noise_level=100):
     width, height = img.size
 
     for _ in range(noise_level):
-        x = random.randint(0, width - 1)
-        y = random.randint(0, height - 1)
-        draw.point((x, y), fill=(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
+        x = secrets.randbelow(width)  # Генерация случайного x
+        y = secrets.randbelow(height)  # Генерация случайного y
+        # Генерация случайного цвета
+        color = (
+            secrets.randbelow(256),  # Красный
+            secrets.randbelow(256),  # Зеленый
+            secrets.randbelow(256)   # Синий
+        )
+        draw.point((x, y), fill=color)
 
     return img
 
@@ -21,11 +27,17 @@ def add_noise_line(image_path, lines_num=100):
 
     width, height = img.size
     for _ in range(lines_num):
-        x1 = random.randint(0, width - 1)
-        y1 = random.randint(0, height - 1)
-        x2 = random.randint(0, width - 1)
-        y2 = random.randint(0, height - 1)
-        draw.line((x1, y1, x2, y2), fill=(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)), width=1)
+        x1 = secrets.randbelow(width)  # Генерация случайного x1
+        y1 = secrets.randbelow(height)  # Генерация случайного y1
+        x2 = secrets.randbelow(width)  # Генерация случайного x2
+        y2 = secrets.randbelow(height)  # Генерация случайного y2
+        # Генерация случайного цвета
+        color = (
+            secrets.randbelow(256),  # Красный
+            secrets.randbelow(256),  # Зеленый
+            secrets.randbelow(256)   # Синий
+        )
+        draw.line((x1, y1, x2, y2), fill=color, width=1)
 
     return img
 
